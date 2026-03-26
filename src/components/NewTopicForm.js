@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import ROUTES from "../app/routes";
 import { ALL_ICONS } from "../data/icons";
 // import addTopic
+import {addTopic} from "../features/topics/topicsSlice";
 
 export default function NewTopicForm() {
   const dispatch = useDispatch();
@@ -19,7 +20,12 @@ export default function NewTopicForm() {
     }
 
     // dispatch new topic
-    navigate(ROUTES.topicsRoute());
+    dispatch(addTopic({
+      name: name,
+      id: uuidv4(),
+      icon: icon
+    }))
+    navigate(ROUTES.topicsRoute()); //navigate(ROUTES.topicsRoute()); should be called after the dispatch to ensure the new topic is added to the state before redirecting. This way, when the user is redirected, the topics page will show the updated list including the new topic.
   };
 
   return (
