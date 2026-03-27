@@ -21,6 +21,10 @@ const topicsSlice = createSlice({
         icon,
         quizIds: []
       };
+    },
+    addQuizId: (state, action) => {
+      const {id, topicId} = action.payload;
+
     }
   }
 });
@@ -36,3 +40,9 @@ export default topicsSlice.reducer; //reducer
 //Inside reducers → state = only that slice’s state
 //You cannot access global state directly there
 //Global state is accessed via selectors, not inside reducers.
+
+/* extraReducers are not just for async actions.
+
+extraReducers allow a slice to respond to actions from other slices or to actions created outside the reducers field. This includes both synchronous and asynchronous actions.
+
+Think of extraReducers as a way for your slice to “listen” for any action in your app, not just its own. It’s not like useEffect (which reacts to changes in React state or props), but it does let your slice react to actions dispatched elsewhere.*/
