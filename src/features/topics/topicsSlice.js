@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addQuiz } from '../quizzes/quizzesSlice';
 
 
 const initialState = {
@@ -22,9 +23,12 @@ const topicsSlice = createSlice({
         quizIds: []
       };
     },
-    addQuizId: (state, action) => {
-      const {id, topicId} = action.payload;
-
+    extraReducers: (builder) => {
+      builder
+      .addCase(addQuiz, (state, action) => {
+       const {id, name, topicId, cardIds} = action.payload;
+       state.topics[topicId].quizIds.push(id); 
+      })// here we use the payload of addQuiz from quizzesSlice
     }
   }
 });
@@ -45,4 +49,8 @@ export default topicsSlice.reducer; //reducer
 
 extraReducers allow a slice to respond to actions from other slices or to actions created outside the reducers field. This includes both synchronous and asynchronous actions.
 
-Think of extraReducers as a way for your slice to “listen” for any action in your app, not just its own. It’s not like useEffect (which reacts to changes in React state or props), but it does let your slice react to actions dispatched elsewhere.*/
+Think of extraReducers as a way for your slice to “listen” for any action in your app, not just its own. It’s not like useEffect (which reacts to changes in React state or props), but it does let your slice react to actions dispatched elsewhere.
+
+THE ABVE ADDQUIZ BELONGS TO THE QUIZZESSLICE WE CAN SE IT TO UPDATE THE QUIZ IDS
+Yes, that’s correct! The `addQuiz` action is defined in the `quizzesSlice`, and you import it into your `topicsSlice` file to use in `extraReducers`. This allows your topics slice to respond whenever a quiz is added, even though the action comes from another slice.
+*/

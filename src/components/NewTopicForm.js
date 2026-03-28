@@ -7,6 +7,8 @@ import { ALL_ICONS } from "../data/icons";
 // import addTopic
 import {addTopic} from "../features/topics/topicsSlice";
 
+
+
 export default function NewTopicForm() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
