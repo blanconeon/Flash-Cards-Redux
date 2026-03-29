@@ -24,7 +24,7 @@ reducers: {
 });
 
 export const allQuizzes = (state) => state.quizzes.quizzes;
-
+//export const selectAllQuizzes = (state) => Object.values(state.quizzes.quizzes); // memoization can be added later with reselect
 export const {addQuiz} = quizzesSlice.actions;
 
 export default quizzesSlice.reducer;

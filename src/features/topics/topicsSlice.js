@@ -53,4 +53,21 @@ Think of extraReducers as a way for your slice to “listen” for any action in
 
 THE ABVE ADDQUIZ BELONGS TO THE QUIZZESSLICE WE CAN SE IT TO UPDATE THE QUIZ IDS
 Yes, that’s correct! The `addQuiz` action is defined in the `quizzesSlice`, and you import it into your `topicsSlice` file to use in `extraReducers`. This allows your topics slice to respond whenever a quiz is added, even though the action comes from another slice.
+
+
+
+Great question! The reason for handling `addQuiz` in the `topicsSlice` is to **keep the relationship between topics and quizzes up to date**.
+
+Here’s what’s happening:
+- When a new quiz is created, it belongs to a specific topic (using `topicId`).
+- Each topic keeps track of which quizzes belong to it using a `quizIds` array.
+- When you dispatch `addQuiz`, you want to add the new quiz’s ID to the correct topic’s `quizIds` array.
+
+By using `extraReducers` in `topicsSlice`, you listen for the `addQuiz` action (even though it’s defined in `quizzesSlice`). When that action happens, you update the topic’s `quizIds` array to include the new quiz’s ID.
+
+This keeps your state consistent:  
+- The quiz knows which topic it belongs to (`topicId`).
+- The topic knows which quizzes belong to it (`quizIds`).
+
+This pattern is common in Redux when you have related data in different slices.
 */
